@@ -3,6 +3,8 @@ package api
 import (
   "encoding/json"
   "net/http"
+
+  "fmt"
 )
 
 // Book type with Name, Author and ISBN
@@ -33,7 +35,26 @@ func FromJSON(data []byte) Book {
   return book
 }
 
+
+func EchoHandleFunc(w http.ResponseWriter, r *http.Request)  {
+  message := r.URL.Query()["message"][0]
+
+  w.Header().Add("Content-Type", "text/plain")
+  fmt.Fprintf(w, message)
+}
+
+// Books slice of all known books
+var Books = []Book{
+  Book{Title:"The Hitchhiker's Guide to the Galaxy", Author: "Douglas Adams", ISBN: "0345391802"},
+  Book{Title: "Cloud Native Go", Author: "M.-L. Reimer", ISBN: "0123456789"},
+}
 // BooksHandleFunc to be used as http.HandleFunc for Book API
 func BooksHandleFunc(w http.ResponseWriter, r *http.Request) {
+  b, err := json.Marshal(Books)
+  if err != nil{
+    panic(err)
+  }
+  w.Header().Add("Content-Type", "application/json; charset=utf-8")
 
+  w.Write(b)
 }
