@@ -9,9 +9,9 @@ import (
 
 // Book type with Name, Author and ISBN
 type Book struct {
-  Title string
-  Author string
-  ISBN string
+  Title string `json:"title"`
+  Author string `json:"author"`
+  ISBN string `json:"isbn"`
 
   // define the book
 }
