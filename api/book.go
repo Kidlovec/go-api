@@ -98,7 +98,6 @@ func BookHandleFunc(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Unsupported request method."))
 
 	}
-
 }
 
 // BooksHandleFunc to be used as http.HandleFunc for Book API
